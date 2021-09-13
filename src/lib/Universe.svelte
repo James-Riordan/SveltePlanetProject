@@ -52,7 +52,7 @@
   const raycaster = new THREE.Raycaster();
 
   //  Initial Camera Config
-  camera.position.set(12, 40, 85);
+  camera.position.set(35, 115, 120);
   $: raycaster.setFromCamera(mouse, camera);
 
   function onMouseMove(event) {
@@ -205,6 +205,9 @@
       canvas: canvas,
     });
     controls = new OrbitControls(camera, renderer.domElement);
+    controls.minDistance = 100
+    controls.maxDistance = 250
+
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -213,7 +216,7 @@
     const background = "black"
     scene.background = background;
 
-    Array(400).fill().forEach(addStar)
+    Array(1200).fill().forEach(addStar)
 
     
     //  Initialize planets
@@ -333,13 +336,13 @@
 
   function loop(t) {
     frame = requestAnimationFrame(loop);
-    $planets.mercury.time += $planets.mercury.speed;
-    $planets.venus.time += $planets.venus.speed;
-    $planets.earth.time += $planets.earth.speed;
-    $planets.mars.time += $planets.mars.speed;
-    $planets.jupiter.time += $planets.jupiter.speed;
-    $planets.saturn.time += $planets.saturn.speed;
-    $planets.uranus.time += $planets.uranus.speed;
+    $planets.mercury.time -= $planets.mercury.speed;
+    $planets.venus.time -= $planets.venus.speed;
+    $planets.earth.time -= $planets.earth.speed;
+    $planets.mars.time -= $planets.mars.speed;
+    $planets.jupiter.time -= $planets.jupiter.speed;
+    $planets.saturn.time -= $planets.saturn.speed;
+    $planets.uranus.time -= $planets.uranus.speed;
 
     $planets.sun.rotation.y += 0.005;
     $planets.mercury.rotation.y += 0.03;
@@ -373,6 +376,7 @@
 
     controls.update();
     renderer.render(scene, camera);
+
 
   }
 </script>
